@@ -1,0 +1,58 @@
+{
+  "name": "weibo-data-query",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.js",
+  "description": "微博信息批量查询工具，支持桌面应用打包、Cookie 本机配置和 Excel/WPS 友好的复制。",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "vite --host 0.0.0.0 --port 5173",
+    "dev:server": "node server/index.js",
+    "electron:dev": "npm run build && electron .",
+    "start": "node server/index.js",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5173",
+    "dist": "npm run build && electron-builder --win portable"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^43.0.0",
+    "electron-builder": "^25.1.8",
+    "vite": "^6.0.7"
+  },
+  "build": {
+    "appId": "com.company.weibo-data-query",
+    "productName": "微博信息批量查询",
+    "asar": true,
+    "electronVersion": "43.0.0",
+    "electronDist": "node_modules/electron/dist",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "server/**/*",
+      "package.json",
+      "!config.json",
+      "!.env",
+      "!release/**/*",
+      "!node_modules/.cache/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "signAndEditExecutable": false,
+      "artifactName": "微博信息批量查询.exe"
+    }
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}
